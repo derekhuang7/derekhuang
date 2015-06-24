@@ -1,6 +1,7 @@
 package com.derekhuang.Game;
 
 import org.newdawn.slick.BasicGame;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -14,7 +15,11 @@ public class Game extends BasicGame{
 
 	@Override
 	public void render(GameContainer container, Graphics g) throws SlickException {
-		g.drawString("This is weird", 450, 270);
+		g.setBackground(Color.blue);
+		g.setColor(Color.yellow);
+		g.drawRect(400, 300, 200, 200);
+		g.setColor(Color.red);
+		g.drawString("This is weird", 430, 270);
 	}
 
 	@Override
