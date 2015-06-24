@@ -13,9 +13,8 @@ public class Game extends BasicGame{
 	}
 
 	@Override
-	public void render(GameContainer container, Graphics g)
-			throws SlickException {
-		
+	public void render(GameContainer container, Graphics g) throws SlickException {
+		g.drawString("This is weird", 450, 270);
 	}
 
 	@Override
@@ -24,8 +23,7 @@ public class Game extends BasicGame{
 	}
 
 	@Override
-	public void update(GameContainer container, int delta)
-			throws SlickException {
+	public void update(GameContainer container, int delta) throws SlickException {
 		
 	}
 
