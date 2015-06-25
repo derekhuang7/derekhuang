@@ -35,7 +35,7 @@ public class Game extends BasicGame{
 	@Override
 	public void update(GameContainer container, int delta) throws SlickException {
 		for (int i = 0; i < entityList.size(); i++) {
-			entityList.get(i).update(container, g);
+			entityList.get(i).update(container, delta);
 		}
 	}
 }
