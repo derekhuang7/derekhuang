@@ -20,6 +20,9 @@ public abstract class BaseEntities {
 	
 	public BaseEntities(Point p) {
 		this.position = p;
+		this.width = 0;
+		this.height = 0;
+		this.rotation = 0;
 	}
 	
 	public BaseEntities(Point p, int width, int height, double rotation) {

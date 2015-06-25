@@ -7,6 +7,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Point;
 
 import com.derekhuang.Game.entities.BaseEntities;
 import com.derekhuang.Game.entities.Box;
@@ -30,7 +31,7 @@ public class Game extends BasicGame{
 
 	@Override
 	public void init(GameContainer container) throws SlickException {
-		entityList.add(new Box());
+		entityList.add(new Box(new Point(300, 300), 200, 200, 0));
 	}
 
 	@Override
