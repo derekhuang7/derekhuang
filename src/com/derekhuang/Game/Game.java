@@ -31,7 +31,7 @@ public class Game extends BasicGame{
 
 	@Override
 	public void init(GameContainer container) throws SlickException {
-		entityList.add(new Box(new Point(300, 300), 200, 200, 0));
+		entityList.add(new Box(new Point(0, 0), 200, 200, 0));
 	}
 
 	@Override

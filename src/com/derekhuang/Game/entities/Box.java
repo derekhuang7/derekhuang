@@ -18,7 +18,6 @@ public class Box extends BaseEntities {
 
 	@Override
 	public void update(GameContainer container, int delta) throws SlickException {
-
+		
 	}
-
 }
