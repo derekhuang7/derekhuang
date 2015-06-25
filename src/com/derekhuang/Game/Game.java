@@ -9,6 +9,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 import com.derekhuang.Game.entities.BaseEntities;
+import com.derekhuang.Game.entities.Box;
 
 public class Game extends BasicGame{
 
@@ -29,7 +30,7 @@ public class Game extends BasicGame{
 
 	@Override
 	public void init(GameContainer container) throws SlickException {
-		
+		entityList.add(new Box());
 	}
 
 	@Override
