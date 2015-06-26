@@ -7,6 +7,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 import com.derek.funGame.entities.Box;
+import com.derek.funGame.entities.Box2;
 import com.derek.funGame.events.Event;
 import com.derek.funGame.events.EventHandler;
 import com.derek.funGame.events.EventSystem;
@@ -35,8 +36,7 @@ public class Game extends BasicGame {
 	public void init(GameContainer container) throws SlickException {
 		bindings = new InputBindings(container.getInput());
 		
-		EntityManager.instance.spawn(new Box(0, 100, 100, 25 , 25));
-		EntityManager.instance.spawn(new Box(-1, 110, 110, 25 , 25));
+		EntityManager.instance.spawn(new Box2(-2, 0, 0, 100 , 100));
 	}
 
 	@Override
