@@ -13,6 +13,8 @@ public abstract class BaseEntity extends EventSystem {
 		this.zIndex = zIndex;
 	}
 	
+	
+	
 	public abstract void update(GameContainer container, int delta) throws SlickException;
 	
 	public abstract void render(GameContainer container, Graphics g) throws SlickException;
