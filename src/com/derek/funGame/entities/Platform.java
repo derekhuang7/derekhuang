@@ -5,14 +5,14 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-public class Floor extends BaseEntity{
-	
+public class Platform extends BaseEntity{
+
 	protected float x;
 	protected float y;
 	protected float width;
 	protected float height;
 
-	public Floor(int zIndex, int x, int y, int width, int height) {
+	public Platform(int zIndex, int x, int y, int width, int height) {
 		super(zIndex);
 		this.x = x;
 		this.y = y;
@@ -31,8 +31,9 @@ public class Floor extends BaseEntity{
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
 		// TODO Auto-generated method stub
-		g.setColor(Color.yellow);
+		g.setColor(Color.blue);
 		g.fillRect(x, y, width, height);
 	}
 
 }
+

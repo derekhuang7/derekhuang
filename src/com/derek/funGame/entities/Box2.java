@@ -16,7 +16,7 @@ public class Box2 extends BaseEntity{
 	protected double fallc = 0;
 	protected double fall = 0;
 	protected float initialY = y;
-	protected double dVelocity = 5.98;
+	protected double dVelocity = 8.98;
 
 	public Box2(int zIndex, int x, int y, int width, int height) {
 		super(zIndex);
@@ -28,7 +28,7 @@ public class Box2 extends BaseEntity{
 
 	@Override
 	public void update(GameContainer container, int delta) throws SlickException {
-		if (y == initialY & isJumping == true) {
+		if (y == 449 & isJumping == true) {
 			isJumping = false;
 		} else if (y < 450) {
 			y = (float) (y + (fall) * .001 * delta);
@@ -39,9 +39,8 @@ public class Box2 extends BaseEntity{
 		
 		if(container.getInput().isKeyDown(Input.KEY_UP) & isJumping == false & y == 450) {
 			isJumping = true;
-			fall = -1900;
+			fall = -1700;
 			y = 449;
-			initialY = y;
 		}
 		if(container.getInput().isKeyDown(Input.KEY_RIGHT) & x < 910) {
 			x += 750 * 0.001f * delta;
