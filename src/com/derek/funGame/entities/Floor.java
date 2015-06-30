@@ -7,15 +7,15 @@ import org.newdawn.slick.SlickException;
 
 public class Floor extends BaseEntity{
 	
-	protected float x;
-	protected float y;
+	protected static float x;
+	protected static float y;
 	protected float width;
 	protected float height;
 
 	public Floor(int zIndex, int x, int y, int width, int height) {
 		super(zIndex);
 		this.x = x;
-		this.y = y;
+		Floor.y = y;
 		this.width = width;
 		this.height = height;
 	}

@@ -16,7 +16,7 @@ public class Box2 extends BaseEntity{
 	protected double fallc = 0;
 	protected double fall = 0;
 	protected float initialY = y;
-	protected double dVelocity = 8.98;
+	protected double dVelocity = 4.98;
 
 	public Box2(int zIndex, int x, int y, int width, int height) {
 		super(zIndex);
@@ -28,21 +28,46 @@ public class Box2 extends BaseEntity{
 
 	@Override
 	public void update(GameContainer container, int delta) throws SlickException {
-		if (y == 449 & isJumping == true) {
+		if (y == PlatformGoThrough.y - 50 & isJumping == true & PlatformGoThrough.platformExist(x)) {
 			isJumping = false;
-		} else if (y < 450) {
+		} else if (y < PlatformGoThrough.y - 50 & PlatformGoThrough.platformExist(x)) {
 			y = (float) (y + (fall) * .001 * delta);
 			fall += dVelocity;
-		} else {
-			y = 450;
+		} else if (y > PlatformGoThrough.y - 50 & y < PlatformGoThrough.y + 20 & fall < 0 & PlatformGoThrough.platformExist(x)) {
+			y = (float) (y + (fall) * .001 * delta);
+			fall += dVelocity;
+		} else if (container.getInput().isKeyDown(Input.KEY_DOWN)) {
+			y = (float) (y + (fall) * .001 * delta);
+			fall += dVelocity;
+		} else if (y > PlatformGoThrough.y - 50 & y < PlatformGoThrough.y + 20 & PlatformGoThrough.platformExist(x)) {
+			y = PlatformGoThrough.y - 50;
 		}
 		
-		if(container.getInput().isKeyDown(Input.KEY_UP) & isJumping == false & y == 450) {
+		if (y == Floor.y - 50 & isJumping == true) {
+			isJumping = false;
+		} else if (y < Floor.y - 50 & PlatformGoThrough.platformExist(x) == false) {
+			y = (float) (y + (fall) * .001 * delta);
+			fall += dVelocity;
+		} else if (y < Floor.y - 50 & y > PlatformGoThrough.y + 20 & PlatformGoThrough.platformExist(x)) {
+			y = (float) (y + (fall) * .001 * delta);
+			fall += dVelocity;
+		} else if (y > Floor.y - 50){
+			y = Floor.y - 50;
+		}
+		
+		
+		if (container.getInput().isKeyDown(Input.KEY_UP) & isJumping == false & (y == Floor.y - 50 | y == PlatformGoThrough.y - 50)) {
 			isJumping = true;
 			fall = -1700;
-			y = 449;
+			if (y == Floor.y - 50) {
+				y = Floor.y - 51;
+			}
+			if (y == PlatformGoThrough.y - 50) {
+				y = PlatformGoThrough.y - 51;
+			}
 		}
-		if(container.getInput().isKeyDown(Input.KEY_RIGHT) & x < 910) {
+		
+		if (container.getInput().isKeyDown(Input.KEY_RIGHT) & x < 910) {
 			x += 750 * 0.001f * delta;
 		}
 		if (container.getInput().isKeyDown(Input.KEY_LEFT) & x > 0) {
