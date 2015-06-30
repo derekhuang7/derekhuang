@@ -19,7 +19,7 @@ public class Box2 extends BaseEntity implements Collidable{
 	protected boolean onDeck;
 	protected boolean isJumping = false;
 	protected double fall = 0;
-	protected double dVelocity = 100.98;
+	protected double dVelocity = 90.98;
 
 	public Box2(int zIndex, int x, int y, int width, int height) {
 		super(zIndex);
@@ -32,10 +32,18 @@ public class Box2 extends BaseEntity implements Collidable{
 			public void handleEvent(Event e) {
 				onDeck = true;
 				isJumping = false;
-				if(e.data[0] instanceof Platform) {
+				if(e.data[0] instanceof Platform & fall < 0) {
+					fall = 0;
+					Platform c = (Platform) e.data[0];
+					sprite.setY(c.getSprite().getY() + 21);
+					onDeck = false;
+					isJumping = true;
+				}
+				if(e.data[0] instanceof Platform & fall > 0) {
 					fall = 0;
 					Platform c = (Platform) e.data[0];
 					sprite.setY(c.getSprite().getY() - 50);
+					onDeck = false;
 				}
 					
 			}
