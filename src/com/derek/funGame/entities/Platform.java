@@ -15,7 +15,7 @@ import com.derek.funGames.collisions.CollisionSystem;
 public class Platform extends BaseEntity implements Collidable{
 	
 	private Rectangle sprite;
-	private Random r = new Random();
+	protected Random r = new Random();
 	
 	public Platform(int zIndex, int x, int y, int width, int height) {
 		super(zIndex);
@@ -26,13 +26,15 @@ public class Platform extends BaseEntity implements Collidable{
 	@Override
 	public void update(GameContainer container, int delta)
 			throws SlickException {
+		//sprite movement
 		sprite.setX((float) (sprite.getX() - .5));
+		//sprite reset if off screen
 		if (sprite.getX() < -200) {
 			sprite.setX(960);
-			if (sprite.getY() > 250) {
-				sprite.setY(sprite.getY() - r.nextInt(250));
-			} else if (sprite.getY() <= 250) {
-				sprite.setY(sprite.getY() + r.nextInt(270));
+			if (sprite.getY() > 295) {
+				sprite.setY(sprite.getY() - r.nextInt(245));
+			} else if (sprite.getY() <= 295) {
+				sprite.setY(sprite.getY() + r.nextInt(245));
 			}
 		}
 	}
@@ -40,8 +42,8 @@ public class Platform extends BaseEntity implements Collidable{
 	@Override
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
-		// TODO Auto-generated method stub
-		g.setColor(Color.blue);
+		//default sprite
+		g.setColor(Color.transparent);
 		g.fill(getSprite());
 	}
 

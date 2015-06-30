@@ -8,7 +8,7 @@ public class Main {
 	public static void main(String[] args) {
 		try {
 			AppGameContainer app = new AppGameContainer(new Game("Phase Runner"));
-			app.setDisplayMode(0, 0, true);
+			app.setDisplayMode(960, 540, false);
 			app.start();
 		} catch (SlickException e) {
 			e.printStackTrace();

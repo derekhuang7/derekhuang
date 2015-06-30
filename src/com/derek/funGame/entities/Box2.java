@@ -18,6 +18,7 @@ public class Box2 extends BaseEntity implements Collidable{
 	private Rectangle sprite;
 	protected boolean onDeck;
 	protected boolean isJumping = false;
+	private int spaceIsHeld = 0;
 	protected double fall = 0;
 	protected double dVelocity = 4.98;
 
@@ -30,34 +31,66 @@ public class Box2 extends BaseEntity implements Collidable{
 
 			@Override
 			public void handleEvent(Event e) {
+				//this below is only for floor (delete later)
 				onDeck = true;
-				isJumping = false;
-				if(e.data[0] instanceof Platform & fall < 0) {
+				if(e.data[0] instanceof Floor) {
+					isJumping = false;
 					fall = 0;
-					Platform c = (Platform) e.data[0];
-					sprite.setY(c.getSprite().getY() + 21);
-					onDeck = false;
-					isJumping = true;
+					Floor F = (Floor) e.data[0];
+					sprite.setY(F.getSprite().getY() - 50);
 				}
-				if(e.data[0] instanceof Platform & fall > 0) {
-					fall = 0;
-					Platform c = (Platform) e.data[0];
-					sprite.setY(c.getSprite().getY() - 50);
-					onDeck = false;
+				//here ends the Floor
+				//here begins PlatformBlue
+				if (spaceIsHeld == 0) {
+					if(e.data[0] instanceof PlatformBlue & fall < 0) {
+						isJumping = false;
+						fall = 0;
+						PlatformBlue PB = (PlatformBlue) e.data[0];
+						sprite.setY(PB.getSprite().getY() + 21);
+						onDeck = false;
+						isJumping = true;
+					} else if (e.data[0] instanceof PlatformBlue & fall > 0) {
+						isJumping = false;
+						fall = 0;
+						PlatformBlue PB = (PlatformBlue) e.data[0];
+						sprite.setY(PB.getSprite().getY() - 50);
+						onDeck = false;
+					} else {
+						onDeck = false;
+					}
+				//here ends PlatformBlue
+				//here begins PlatformRed
+				} else if (spaceIsHeld == 1){
+					if(e.data[0] instanceof PlatformRed & fall < 0) {
+						isJumping = false;
+						fall = 0;
+						PlatformRed PR = (PlatformRed) e.data[0];
+						sprite.setY(PR.getSprite().getY() + 21);
+						onDeck = false;
+						isJumping = true;
+					} else if (e.data[0] instanceof PlatformRed & fall > 0) {
+						isJumping = false;
+						fall = 0;
+						PlatformRed PR = (PlatformRed) e.data[0];
+						sprite.setY(PR.getSprite().getY() - 50);
+						onDeck = false;
+					} else {
+						onDeck = false;
+					}
 				}
-					
+				//here ends PlatformRed
 			}
 		});
 	}
 	
 	@Override
 	public void update(GameContainer container, int delta) throws SlickException {
-
+		//gravity & jump
 		if (!onDeck) {
 			sprite.setY( (float) (sprite.getY() + (fall) * .001 * delta));
 			fall += dVelocity;
 		}
-		
+		//Key input
 		if (container.getInput().isKeyDown(Input.KEY_RIGHT) & sprite.getX() < 910) {
 			sprite.setX(sprite.getX() + 750 * 0.001f * delta);
 		}
@@ -70,11 +103,19 @@ public class Box2 extends BaseEntity implements Collidable{
 			sprite.setY(sprite.getY() - 1);
 			onDeck = false;
 		}
+
 	}
 
 	@Override
 	public void render(GameContainer container, Graphics g) throws SlickException {
-		g.setColor(Color.red);
+		//phase changer
+		if (container.getInput().isKeyDown(Input.KEY_SPACE)) {
+			spaceIsHeld = 1;
+			g.setColor(Color.blue);
+		} else {
+			spaceIsHeld = 0;
+			g.setColor(Color.red);
+		}
 		g.fill(sprite);
 	}
 

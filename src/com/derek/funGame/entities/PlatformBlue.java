@@ -8,27 +8,19 @@ import org.newdawn.slick.geom.Rectangle;
 
 import com.derek.funGames.collisions.CollisionSystem;
 
-
-public class Floor extends Platform{
+public class PlatformBlue extends Platform{
 	
-	public Floor(int zIndex, int x, int y, int width, int height) {
+	public PlatformBlue(int zIndex, int x, int y, int width, int height) {
 		super(zIndex, x, y, width, height);
 		setSprite(new Rectangle(x, y, width, height));
 		CollisionSystem.getInstance().register(this);
 	}
 
 	@Override
-	public void update(GameContainer container, int delta)
-			throws SlickException {
-		//this overrides movement & reset
-	}
-	
-	@Override
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
-		g.setColor(Color.yellow);
+		g.setColor(Color.blue);
 		g.fill(getSprite());
 	}
-
 
 }
