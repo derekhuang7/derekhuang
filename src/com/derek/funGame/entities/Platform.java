@@ -19,15 +19,22 @@ public class Platform extends BaseEntity implements Collidable{
 	
 	public Platform(int zIndex, int x, int y, int width, int height) {
 		super(zIndex);
-		setSprite(new Rectangle(x, r.nextInt(540), width, height));
+		setSprite(new Rectangle(x, r.nextInt(500), width, height));
 		CollisionSystem.getInstance().register(this);
 	}
 
 	@Override
 	public void update(GameContainer container, int delta)
 			throws SlickException {
-		// TODO Auto-generated method stub
-		
+		sprite.setX((float) (sprite.getX() - .5));
+		if (sprite.getX() < -200) {
+			sprite.setX(960);
+			if (sprite.getY() > 250) {
+				sprite.setY(sprite.getY() - r.nextInt(250));
+			} else if (sprite.getY() <= 250) {
+				sprite.setY(sprite.getY() + r.nextInt(270));
+			}
+		}
 	}
 
 	@Override

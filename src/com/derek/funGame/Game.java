@@ -32,9 +32,9 @@ public class Game extends BasicGame {
 	@Override
 	public void init(GameContainer container) throws SlickException {
 		bindings = new InputBindings(container.getInput());
-		EntityManager.instance.spawn(new Floor(-1, 0, 500, 960, 80));
-		EntityManager.instance.spawn(new Platform(-1, 100, 270, 200, 20));
-		EntityManager.instance.spawn(new Platform(-1, 100, 100, 200, 20));
+		EntityManager.instance.spawn(new Floor(-1, 0, 530, 960, 10));
+		EntityManager.instance.spawn(new Platform(-1, 580, 0, 200, 20));
+		EntityManager.instance.spawn(new Platform(-1, 0, 0, 200, 20));
 		EntityManager.instance.spawn(new Box2(-2, 0, 0, 50 , 50));
 	}
 

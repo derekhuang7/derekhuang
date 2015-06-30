@@ -19,7 +19,7 @@ public class Box2 extends BaseEntity implements Collidable{
 	protected boolean onDeck;
 	protected boolean isJumping = false;
 	protected double fall = 0;
-	protected double dVelocity = 90.98;
+	protected double dVelocity = 4.98;
 
 	public Box2(int zIndex, int x, int y, int width, int height) {
 		super(zIndex);
