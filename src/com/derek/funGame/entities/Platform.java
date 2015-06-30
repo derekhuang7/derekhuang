@@ -1,5 +1,7 @@
 package com.derek.funGame.entities;
 
+import java.util.Random;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -13,10 +15,11 @@ import com.derek.funGames.collisions.CollisionSystem;
 public class Platform extends BaseEntity implements Collidable{
 	
 	private Rectangle sprite;
+	private Random r = new Random();
 	
 	public Platform(int zIndex, int x, int y, int width, int height) {
 		super(zIndex);
-		setSprite(new Rectangle(x, y, width, height));
+		setSprite(new Rectangle(x, r.nextInt(540), width, height));
 		CollisionSystem.getInstance().register(this);
 	}
 

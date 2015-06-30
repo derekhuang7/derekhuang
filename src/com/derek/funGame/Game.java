@@ -14,11 +14,6 @@ import com.derek.funGame.events.EventHandler;
 import com.derek.funGame.events.EventSystem;
 import com.derek.funGames.collisions.CollisionSystem;
 
-/**
- * Contains all the code that makes events work. It should also be used to invoke and bind to "global" or "miscellaneous" events.
- * @author Isaac
- *
- */
 public class Game extends BasicGame {
 	
 	//Since we can't extend two classes
@@ -39,6 +34,7 @@ public class Game extends BasicGame {
 		bindings = new InputBindings(container.getInput());
 		EntityManager.instance.spawn(new Floor(-1, 0, 500, 960, 80));
 		EntityManager.instance.spawn(new Platform(-1, 100, 270, 200, 20));
+		EntityManager.instance.spawn(new Platform(-1, 100, 100, 200, 20));
 		EntityManager.instance.spawn(new Box2(-2, 0, 0, 50 , 50));
 	}
 
