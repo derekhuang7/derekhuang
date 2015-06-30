@@ -4,7 +4,7 @@ import com.derek.funGame.events.Event;
 
 public class CollisionEvent extends Event{
 	
-	public CollisionEvent(String name) {
-		super("CollisionEvent");
+	public CollisionEvent(Object collider) {
+		super("CollisionEvent", new Object[] {collider});
 	}
 }

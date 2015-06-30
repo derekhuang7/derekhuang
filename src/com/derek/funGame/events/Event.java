@@ -9,6 +9,7 @@ public class Event {
 	}
 	
 	public Event(String name, Object[] data) {
+		this.name = name;
 		this.data = data;
 	}
 }

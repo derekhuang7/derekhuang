@@ -5,7 +5,7 @@ import org.newdawn.slick.geom.Shape;
 import com.derek.funGame.events.Event;
 
 public interface Collidable {
-	public Shape getCollisionBouds();
+	public Shape getCollisionBounds();
 	
 	public boolean collidesWith(Collidable c);
 	

@@ -30,8 +30,8 @@ public class CollisionSystem {
 				c1 = collisionList.get(j);
 				c2 = collisionList.get(k);
 				if(c1.collidesWith(c2)) {
-					c1.invokeEvent(new CollisionEvent(c2.getClass().getSimpleName()));
-					c2.invokeEvent(new CollisionEvent(c1.getClass().getSimpleName()));
+					c1.invokeEvent(new CollisionEvent(c2));
+					c2.invokeEvent(new CollisionEvent(c1));
 				}
 			}
 		}

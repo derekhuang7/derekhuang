@@ -5,79 +5,81 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 
-public class Box2 extends BaseEntity{
+import com.derek.funGame.events.Event;
+import com.derek.funGame.events.EventHandler;
+import com.derek.funGames.collisions.Collidable;
+import com.derek.funGames.collisions.CollisionSystem;
+
+public class Box2 extends BaseEntity implements Collidable{
 	
-	protected float x;
-	protected float y;
-	protected float width;
-	protected float height;
+	private Rectangle sprite;
+	protected boolean onDeck;
 	protected boolean isJumping = false;
 	protected double fall = 0;
-	protected double dVelocity = 4.98;
+	protected double dVelocity = 100.98;
 
 	public Box2(int zIndex, int x, int y, int width, int height) {
 		super(zIndex);
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
-	}
+		sprite = new Rectangle(x, y, width, height);
+		
+		CollisionSystem.getInstance().register(this);
+		this.addEventListener("CollisionEvent", new EventHandler() {
 
+			@Override
+			public void handleEvent(Event e) {
+				onDeck = true;
+				isJumping = false;
+				if(e.data[0] instanceof Platform) {
+					fall = 0;
+					Platform c = (Platform) e.data[0];
+					sprite.setY(c.getSprite().getY() - 50);
+				}
+					
+			}
+		});
+	}
+	
 	@Override
 	public void update(GameContainer container, int delta) throws SlickException {
-		if (y == PlatformSoft.y - 50 & isJumping == true & PlatformSoft.platformExist(x)) {
-			isJumping = false;
-		} else if (y < PlatformSoft.y - 50 & PlatformSoft.platformExist(x)) {
-			y = (float) (y + (fall) * .001 * delta);
+
+		if (!onDeck) {
+			sprite.setY( (float) (sprite.getY() + (fall) * .001 * delta));
 			fall += dVelocity;
-		} else if (y > PlatformSoft.y - 50 & y < PlatformSoft.y + 20 & fall < 0 & PlatformSoft.platformExist(x)) {
-			y = (float) (y + (fall) * .001 * delta);
-			fall += dVelocity;
-		} else if (y >= PlatformSoft.y - 50 & y < PlatformSoft.y + 20 & PlatformSoft.platformExist(x) & container.getInput().isKeyDown(Input.KEY_DOWN)) {
-			y = (float) (y + (fall) * .001 * delta);
-			fall += dVelocity;
-		} else if (y > PlatformSoft.y - 50 & y < PlatformSoft.y + 20 & PlatformSoft.platformExist(x)) {
-			y = PlatformSoft.y - 50;
 		}
 		
-		if (y == Floor.y - 50 & isJumping == true) {
-			isJumping = false;
-		} else if (y < Floor.y - 50 & PlatformSoft.platformExist(x) == false) {
-			y = (float) (y + (fall) * .001 * delta);
-			fall += dVelocity;
-		} else if (y < Floor.y - 50 & y > PlatformSoft.y + 20 & PlatformSoft.platformExist(x)) {
-			y = (float) (y + (fall) * .001 * delta);
-			fall += dVelocity;
-		} else if (y > Floor.y - 50){
-			y = Floor.y - 50;
+		if (container.getInput().isKeyDown(Input.KEY_RIGHT) & sprite.getX() < 910) {
+			sprite.setX(sprite.getX() + 750 * 0.001f * delta);
 		}
-		
-		
-		if (container.getInput().isKeyDown(Input.KEY_UP) & isJumping == false & (y == Floor.y - 50 | y == PlatformSoft.y - 50)) {
+		if (container.getInput().isKeyDown(Input.KEY_LEFT) & sprite.getX() > 0) {
+			sprite.setX(sprite.getX() - 750 * 0.001f * delta);
+		}
+		if (container.getInput().isKeyDown(Input.KEY_UP) & isJumping == false) {
 			isJumping = true;
 			fall = -1700;
-			if (y == Floor.y - 50) {
-				y = Floor.y - 51;
-			}
-			if (y == PlatformSoft.y - 50) {
-				y = PlatformSoft.y - 51;
-			}
+			sprite.setY(sprite.getY() - 1);
+			onDeck = false;
 		}
-		
-		if (container.getInput().isKeyDown(Input.KEY_RIGHT) & x < 910) {
-			x += 750 * 0.001f * delta;
-		}
-		if (container.getInput().isKeyDown(Input.KEY_LEFT) & x > 0) {
-			x -= 750 * 0.001f * delta;
-		}
-		
 	}
 
 	@Override
 	public void render(GameContainer container, Graphics g) throws SlickException {
 		g.setColor(Color.red);
-		g.fillRect(x, y, width, height);
+		g.fill(sprite);
+	}
+
+	@Override
+	public Shape getCollisionBounds() {
+		// TODO Auto-generated method stub
+		return sprite;
+	}
+
+	@Override
+	public boolean collidesWith(Collidable c) {
+		// TODO Auto-generated method stub
+		return sprite.intersects(c.getCollisionBounds());
 	}
 
 }
