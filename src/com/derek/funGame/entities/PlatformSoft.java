@@ -5,23 +5,23 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-public class PlatformGoThrough extends BaseEntity{
+public class PlatformSoft extends BaseEntity{
 
 	protected static float x;
 	protected static float y;
 	protected static float width;
 	protected float height;
 
-	public PlatformGoThrough(int zIndex, int x, int y, int width, int height) {
+	public PlatformSoft(int zIndex, int x, int y, int width, int height) {
 		super(zIndex);
-		PlatformGoThrough.x = x;
-		PlatformGoThrough.y = y;
-		PlatformGoThrough.width = width;
+		PlatformSoft.x = x;
+		PlatformSoft.y = y;
+		PlatformSoft.width = width;
 		this.height = height;
 	}
 
 	public static boolean platformExist(float x) {
-		if (x < PlatformGoThrough.x + PlatformGoThrough.width & x > PlatformGoThrough.x - 50) {
+		if (x < PlatformSoft.x + PlatformSoft.width & x > PlatformSoft.x - 50) {
 			return true;
 		} else {
 			return false;

@@ -13,9 +13,7 @@ public class Box2 extends BaseEntity{
 	protected float width;
 	protected float height;
 	protected boolean isJumping = false;
-	protected double fallc = 0;
 	protected double fall = 0;
-	protected float initialY = y;
 	protected double dVelocity = 4.98;
 
 	public Box2(int zIndex, int x, int y, int width, int height) {
@@ -28,27 +26,27 @@ public class Box2 extends BaseEntity{
 
 	@Override
 	public void update(GameContainer container, int delta) throws SlickException {
-		if (y == PlatformGoThrough.y - 50 & isJumping == true & PlatformGoThrough.platformExist(x)) {
+		if (y == PlatformSoft.y - 50 & isJumping == true & PlatformSoft.platformExist(x)) {
 			isJumping = false;
-		} else if (y < PlatformGoThrough.y - 50 & PlatformGoThrough.platformExist(x)) {
+		} else if (y < PlatformSoft.y - 50 & PlatformSoft.platformExist(x)) {
 			y = (float) (y + (fall) * .001 * delta);
 			fall += dVelocity;
-		} else if (y > PlatformGoThrough.y - 50 & y < PlatformGoThrough.y + 20 & fall < 0 & PlatformGoThrough.platformExist(x)) {
+		} else if (y > PlatformSoft.y - 50 & y < PlatformSoft.y + 20 & fall < 0 & PlatformSoft.platformExist(x)) {
 			y = (float) (y + (fall) * .001 * delta);
 			fall += dVelocity;
-		} else if (container.getInput().isKeyDown(Input.KEY_DOWN)) {
+		} else if (y >= PlatformSoft.y - 50 & y < PlatformSoft.y + 20 & PlatformSoft.platformExist(x) & container.getInput().isKeyDown(Input.KEY_DOWN)) {
 			y = (float) (y + (fall) * .001 * delta);
 			fall += dVelocity;
-		} else if (y > PlatformGoThrough.y - 50 & y < PlatformGoThrough.y + 20 & PlatformGoThrough.platformExist(x)) {
-			y = PlatformGoThrough.y - 50;
+		} else if (y > PlatformSoft.y - 50 & y < PlatformSoft.y + 20 & PlatformSoft.platformExist(x)) {
+			y = PlatformSoft.y - 50;
 		}
 		
 		if (y == Floor.y - 50 & isJumping == true) {
 			isJumping = false;
-		} else if (y < Floor.y - 50 & PlatformGoThrough.platformExist(x) == false) {
+		} else if (y < Floor.y - 50 & PlatformSoft.platformExist(x) == false) {
 			y = (float) (y + (fall) * .001 * delta);
 			fall += dVelocity;
-		} else if (y < Floor.y - 50 & y > PlatformGoThrough.y + 20 & PlatformGoThrough.platformExist(x)) {
+		} else if (y < Floor.y - 50 & y > PlatformSoft.y + 20 & PlatformSoft.platformExist(x)) {
 			y = (float) (y + (fall) * .001 * delta);
 			fall += dVelocity;
 		} else if (y > Floor.y - 50){
@@ -56,14 +54,14 @@ public class Box2 extends BaseEntity{
 		}
 		
 		
-		if (container.getInput().isKeyDown(Input.KEY_UP) & isJumping == false & (y == Floor.y - 50 | y == PlatformGoThrough.y - 50)) {
+		if (container.getInput().isKeyDown(Input.KEY_UP) & isJumping == false & (y == Floor.y - 50 | y == PlatformSoft.y - 50)) {
 			isJumping = true;
 			fall = -1700;
 			if (y == Floor.y - 50) {
 				y = Floor.y - 51;
 			}
-			if (y == PlatformGoThrough.y - 50) {
-				y = PlatformGoThrough.y - 51;
+			if (y == PlatformSoft.y - 50) {
+				y = PlatformSoft.y - 51;
 			}
 		}
 		
