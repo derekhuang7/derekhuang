@@ -29,6 +29,7 @@ public class Box2 extends BaseEntity implements Collidable{
 	protected double fall = 0;
 	protected double dVelocity = 100.98;
 	private boolean isGameOverBox = false;
+	private int delay = 0;
 
 	public Box2(int zIndex, int x, int y, int width, int height) {
 		super(zIndex);
@@ -93,6 +94,23 @@ public class Box2 extends BaseEntity implements Collidable{
 	
 	@Override
 	public void update(GameContainer container, int delta) throws SlickException {
+		//Reset
+		if (sprite.getY() >= container.getHeight() + 100) {
+			Game.invokeEvent(new Event("GameOver"));
+			delay += 1;
+			if (delay > 210) {
+				delay = 0;
+				isGameOverBox = true;
+			}
+		}
+		if (isGameOverBox == true & container.getInput().isKeyPressed(Input.KEY_ENTER)) {
+			isGameOverBox = false;
+			fall = 0;
+			sprite.setX(0);
+			sprite.setY(0);
+			Game.invokeEvent(new Event("RestartGame"));
+		}
+		
 		//gravity & jump
 		if (!onDeck) {
 			sprite.setY( (float) (sprite.getY() + (fall) * .001 * delta));
@@ -111,26 +129,13 @@ public class Box2 extends BaseEntity implements Collidable{
 			sprite.setY(sprite.getY() - 1);
 			onDeck = false;
 		}
-		
+		//phase changer
 		if (container.getInput().isKeyPressed(Input.KEY_SPACE)) {
 			if(playerColor == PlayerColor.RED)
 				playerColor = PlayerColor.BLUE;
 			else
 				playerColor = PlayerColor.RED;
-		}
-		
-		if (sprite.getY() >= container.getHeight() + 100) {
-			Game.invokeEvent(new Event("GameOver"));
-			isGameOverBox = true;
-		}
-		if (isGameOverBox == true & container.getInput().isKeyPressed(Input.KEY_ENTER)) {
-			isGameOverBox = false;
-			fall = 0;
-			sprite.setX(0);
-			sprite.setY(0);
-			Game.invokeEvent(new Event("RestartGame"));
-		}
-		
+		}	
 
 	}
 
