@@ -41,6 +41,7 @@ public class Spawner extends BaseEntity{
 			public void handleEvent(Event e) {
 				gameTime = 0;
 				x = 1500;
+				y = 295;
 				isGameOver = false;
 				EntityManager.getInstance().spawn(new Floor(-1, 0, 530, 1200, 10));
 			}

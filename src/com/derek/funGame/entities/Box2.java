@@ -8,6 +8,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
+import com.derek.funGame.EntityManager;
 import com.derek.funGame.Game;
 import com.derek.funGame.events.Event;
 import com.derek.funGame.events.EventHandler;
@@ -123,10 +124,10 @@ public class Box2 extends BaseEntity implements Collidable{
 			isGameOverBox = true;
 		}
 		if (isGameOverBox == true & container.getInput().isKeyPressed(Input.KEY_ENTER)) {
+			isGameOverBox = false;
 			fall = 0;
 			sprite.setX(0);
 			sprite.setY(0);
-			isGameOverBox = false;
 			Game.invokeEvent(new Event("RestartGame"));
 		}
 		
