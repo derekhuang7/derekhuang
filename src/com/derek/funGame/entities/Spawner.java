@@ -5,7 +5,6 @@ import java.util.Random;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import com.derek.funGame.EntityManager;
@@ -22,7 +21,8 @@ public class Spawner extends BaseEntity{
 	private int y = 295;
 	private int timer = 0;
 	private float gameTime = 0;
-	private boolean isGameOver = false;
+	private boolean isGameOver = true;
+	private boolean gameStart = false;
 
 	private int delay = 0;
 	
@@ -46,6 +46,7 @@ public class Spawner extends BaseEntity{
 				x = 1500;
 				y = 295;
 				isGameOver = false;
+				gameStart = true;
 				EntityManager.getInstance().spawn(new Floor(-1, 0, 530, 1200, 10));
 			}
 			
@@ -85,31 +86,50 @@ public class Spawner extends BaseEntity{
 			delay = 0;
 		}
 		//End game words
-		if(isGameOver) {
+		if(isGameOver & gameStart) {
 			g.setColor(Color.yellow);
-			g.drawString("Game Over", 440, 240);
+			g.drawString("Game Over", 440, 200);
 			g.setColor(Color.blue);
-			g.drawString("Your time:", 439, 260);
+			g.drawString("Your time:", 439, 220);
 			g.setColor(Color.red);
-			g.drawString(gameTime + " seconds", 405, 285);
+			g.drawString(gameTime + " seconds", 405, 245);
 			if (delay <= 180) {
 				g.setColor(Color.green);
-				g.fillRoundRect(390, 306, delay, 19, 100);
+				g.fillRoundRect(390, 266, delay, 19, 100);
 				g.setColor(Color.white);
 				if ((delay >= 0 & delay < 20) | (delay >= 60 & delay < 80) | (delay >= 120 & delay < 140)) {
-					g.drawString("Loading.", 440, 305);
+					g.drawString("Loading.", 440, 285);
 				} else if ((delay >= 20 & delay < 40) | (delay >= 80 & delay < 100) | (delay >= 140 & delay < 160)) {
-					g.drawString("Loading..", 440, 305);
+					g.drawString("Loading..", 440, 285);
 				} else {
-					g.drawString("Loading...", 440, 305);
+					g.drawString("Loading...", 440, 285);
 				}
-				g.drawRoundRect(389, 305, 182, 20, 100);
+				g.drawRoundRect(389, 265, 182, 20, 100);
 			}
 			delay += 1;
 			if (delay  > 180) {
+				g.setColor(Color.green);
+				g.fillRoundRect(390, 266, 180, 19, 100);
 				g.setColor(Color.white);
+				g.drawRoundRect(389, 265, 182, 20, 100);
+				g.drawString("<<< PH4SE RUNN3R >>>", 390, 265);
 				g.drawString("PRESS ENTER TO PLAY AGAIN", 373, 305);
 			}
+		} else if (!gameStart) {
+			g.setColor(Color.green);
+			g.drawString("<<< PH4SE RUNN3R >>>", 390, 100);
+			g.setColor(Color.white);
+			g.drawString("Made by Derek Huang", 395, 120);
+			g.setColor(Color.yellow);
+			g.drawString("Instructions:", 100, 170);
+			g.setColor(Color.white);
+			g.drawString("* Use left/right keys to move side to side and up key to jump.", 150, 190);
+			g.drawString("* Use the spacebar to change phases (red or blue).", 150, 210);
+			g.drawString("* You can only land on blocks that is the opposite color.", 150, 230);
+			g.drawString("    -(e.g. if you are red, you can land blue blocks, but you will", 150, 250);
+			g.drawString("      fall right through a red block.)", 150, 270);
+			g.setColor(Color.red);
+			g.drawString("--- PRESS ENTER TO START ---", 150, 310);
 		}
 	}
 

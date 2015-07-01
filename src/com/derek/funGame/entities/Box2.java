@@ -8,7 +8,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
-import com.derek.funGame.EntityManager;
 import com.derek.funGame.Game;
 import com.derek.funGame.events.Event;
 import com.derek.funGame.events.EventHandler;
@@ -28,7 +27,7 @@ public class Box2 extends BaseEntity implements Collidable{
 	private PlayerColor playerColor = PlayerColor.RED;
 	protected double fall = 0;
 	protected double dVelocity = 100.98;
-	private boolean isGameOverBox = false;
+	private boolean isGameOverBox = true;
 	private int delay = 0;
 
 	public Box2(int zIndex, int x, int y, int width, int height) {
@@ -40,7 +39,7 @@ public class Box2 extends BaseEntity implements Collidable{
 
 			@Override
 			public void handleEvent(Event e) {
-				//this below is only for floor (delete later)
+				//this below is only for floor
 				onDeck = true;
 				if(e.data[0] instanceof Floor) {
 					isJumping = false;
@@ -98,7 +97,7 @@ public class Box2 extends BaseEntity implements Collidable{
 		if (sprite.getY() >= container.getHeight() + 100) {
 			Game.invokeEvent(new Event("GameOver"));
 			delay += 1;
-			if (delay > 210) {
+			if (delay > 230) {
 				delay = 0;
 				isGameOverBox = true;
 			}
