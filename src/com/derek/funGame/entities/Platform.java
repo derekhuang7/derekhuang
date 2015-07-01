@@ -2,7 +2,6 @@ package com.derek.funGame.entities;
 
 import java.util.Random;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -14,7 +13,7 @@ import com.derek.funGames.collisions.CollisionSystem;
 
 public class Platform extends BaseEntity implements Collidable{
 	
-	private Rectangle sprite;
+	protected Rectangle sprite;
 	protected Random r = new Random();
 	
 	public Platform(int zIndex, int x, int y, int width, int height) {
@@ -27,24 +26,13 @@ public class Platform extends BaseEntity implements Collidable{
 	public void update(GameContainer container, int delta)
 			throws SlickException {
 		//sprite movement
-		sprite.setX((float) (sprite.getX() - .5));
-		//sprite reset if off screen
-		if (sprite.getX() < -200) {
-			sprite.setX(960);
-			if (sprite.getY() > 295) {
-				sprite.setY(sprite.getY() - r.nextInt(245));
-			} else if (sprite.getY() <= 295) {
-				sprite.setY(sprite.getY() + r.nextInt(245));
-			}
-		}
+		sprite.setX((float) (sprite.getX() - 500 * .001 * delta));
 	}
 
 	@Override
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
-		//default sprite
-		g.setColor(Color.transparent);
-		g.fill(getSprite());
+
 	}
 
 	@Override

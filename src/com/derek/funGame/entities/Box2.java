@@ -8,6 +8,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
+import com.derek.funGame.Game;
 import com.derek.funGame.events.Event;
 import com.derek.funGame.events.EventHandler;
 import com.derek.funGames.collisions.Collidable;
@@ -15,12 +16,18 @@ import com.derek.funGames.collisions.CollisionSystem;
 
 public class Box2 extends BaseEntity implements Collidable{
 	
+	public enum PlayerColor {
+		RED,
+		BLUE
+	}
+	
 	private Rectangle sprite;
 	protected boolean onDeck;
 	protected boolean isJumping = false;
-	private int spaceIsHeld = 0;
+	private PlayerColor playerColor = PlayerColor.RED;
 	protected double fall = 0;
-	protected double dVelocity = 4.98;
+	protected double dVelocity = 100.98;
+	private boolean isGameOverBox = false;
 
 	public Box2(int zIndex, int x, int y, int width, int height) {
 		super(zIndex);
@@ -41,7 +48,7 @@ public class Box2 extends BaseEntity implements Collidable{
 				}
 				//here ends the Floor
 				//here begins PlatformBlue
-				if (spaceIsHeld == 0) {
+				if (playerColor == PlayerColor.RED) {
 					if(e.data[0] instanceof PlatformBlue & fall < 0) {
 						isJumping = false;
 						fall = 0;
@@ -60,7 +67,7 @@ public class Box2 extends BaseEntity implements Collidable{
 					}
 				//here ends PlatformBlue
 				//here begins PlatformRed
-				} else if (spaceIsHeld == 1){
+				} else if (playerColor == PlayerColor.BLUE){
 					if(e.data[0] instanceof PlatformRed & fall < 0) {
 						isJumping = false;
 						fall = 0;
@@ -103,20 +110,39 @@ public class Box2 extends BaseEntity implements Collidable{
 			sprite.setY(sprite.getY() - 1);
 			onDeck = false;
 		}
+		
+		if (container.getInput().isKeyPressed(Input.KEY_SPACE)) {
+			if(playerColor == PlayerColor.RED)
+				playerColor = PlayerColor.BLUE;
+			else
+				playerColor = PlayerColor.RED;
+		}
+		
+		if (sprite.getY() >= container.getHeight() + 100) {
+			Game.invokeEvent(new Event("GameOver"));
+			isGameOverBox = true;
+		}
+		if (isGameOverBox == true & container.getInput().isKeyPressed(Input.KEY_ENTER)) {
+			fall = 0;
+			sprite.setX(0);
+			sprite.setY(0);
+			isGameOverBox = false;
+			Game.invokeEvent(new Event("RestartGame"));
+		}
+		
 
 	}
 
 	@Override
 	public void render(GameContainer container, Graphics g) throws SlickException {
-		//phase changer
-		if (container.getInput().isKeyDown(Input.KEY_SPACE)) {
-			spaceIsHeld = 1;
-			g.setColor(Color.blue);
-		} else {
-			spaceIsHeld = 0;
+		if (playerColor == PlayerColor.RED) {
 			g.setColor(Color.red);
+			g.fill(sprite);
 		}
-		g.fill(sprite);
+		if (playerColor == PlayerColor.BLUE) {
+			g.setColor(Color.blue);
+			g.fill(sprite);
+		}
 	}
 
 	@Override

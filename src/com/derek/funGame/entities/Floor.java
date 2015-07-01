@@ -16,12 +16,6 @@ public class Floor extends Platform{
 		setSprite(new Rectangle(x, y, width, height));
 		CollisionSystem.getInstance().register(this);
 	}
-
-	@Override
-	public void update(GameContainer container, int delta)
-			throws SlickException {
-		//this overrides movement & reset
-	}
 	
 	@Override
 	public void render(GameContainer container, Graphics g)
