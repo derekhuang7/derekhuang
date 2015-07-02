@@ -3,6 +3,7 @@ package com.derek.funGame.entities;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
@@ -29,6 +30,8 @@ public class Box2 extends BaseEntity implements Collidable{
 	protected double dVelocity = 100.98;
 	private boolean isGameOverBox = true;
 	private int delay = 0;
+	private static float movecell = 0;
+	Image stickfigure = null;
 
 	public Box2(int zIndex, int x, int y, int width, int height) {
 		super(zIndex);
@@ -107,13 +110,15 @@ public class Box2 extends BaseEntity implements Collidable{
 			fall = 0;
 			sprite.setX(0);
 			sprite.setY(0);
+			movecell = 0;
 			Game.invokeEvent(new Event("RestartGame"));
 		}
 		
+		movecell += .01;
 		//gravity & jump
 		if (!onDeck) {
 			sprite.setY( (float) (sprite.getY() + (fall) * .001 * delta));
-			fall += dVelocity;
+			fall += movecell + dVelocity;
 		}
 		//Key input
 		if (container.getInput().isKeyDown(Input.KEY_RIGHT) & sprite.getX() < 910) {
@@ -140,13 +145,13 @@ public class Box2 extends BaseEntity implements Collidable{
 
 	@Override
 	public void render(GameContainer container, Graphics g) throws SlickException {
+		stickfigure = new Image("res/images.jpg");
+
 		if (playerColor == PlayerColor.RED) {
-			g.setColor(Color.red);
-			g.fill(sprite);
+			g.drawImage(stickfigure, (float) (sprite.getX() - 25), sprite.getY() + 20, Color.red);
 		}
 		if (playerColor == PlayerColor.BLUE) {
-			g.setColor(Color.blue);
-			g.fill(sprite);
+			g.drawImage(stickfigure, (float) (sprite.getX() - 25), sprite.getY() + 20, Color.blue);
 		}
 	}
 
