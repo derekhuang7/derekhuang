@@ -24,5 +24,8 @@ public class Floor extends Platform{
 		g.fill(getSprite());
 	}
 
-
+	public void setCoords(float x, float y) {
+		this.sprite.setX(x);
+		this.sprite.setY(y);
+	}
 }

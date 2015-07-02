@@ -24,12 +24,6 @@ public class Platform extends BaseEntity implements Collidable{
 		super(zIndex);
 		setSprite(new Rectangle(x, r.nextInt(500), width, height));
 		CollisionSystem.getInstance().register(this);
-	}
-
-	@Override
-	public void update(GameContainer container, int delta)
-			throws SlickException {
-		//sprite movement
 		Game.addEventListener("RestartGame", new EventHandler() {
 
 			@Override
@@ -38,7 +32,13 @@ public class Platform extends BaseEntity implements Collidable{
 			}
 			
 		});
-		sprite.setX((float) (sprite.getX() - ((300 + movecell) * .001 * delta)));
+	}
+
+	@Override
+	public void update(GameContainer container, int delta)
+			throws SlickException {
+		//sprite movement
+		sprite.setX((float) (sprite.getX() - ((375 + movecell) * .001 * delta)));
 		movecell += .01;
 	}
 
