@@ -27,10 +27,9 @@ public class Box2 extends BaseEntity implements Collidable{
 	protected boolean isJumping = false;
 	private PlayerColor playerColor = PlayerColor.RED;
 	protected double fall = 0;
-	protected double dVelocity = 100.98;
+	protected double dVelocity = 5882.41;
 	private boolean isGameOverBox = true;
 	private int delay = 0;
-	private static float movecell = 0;
 	Image stickfigure = null;
 
 	public Box2(int zIndex, int x, int y, int width, int height) {
@@ -42,15 +41,15 @@ public class Box2 extends BaseEntity implements Collidable{
 
 			@Override
 			public void handleEvent(Event e) {
-				//this below is only for floor
+				//this below is only for RestartPlatform
 				onDeck = true;
-				if(e.data[0] instanceof Floor) {
+				if(e.data[0] instanceof RestartPlatform) {
 					isJumping = false;
 					fall = 0;
-					Floor F = (Floor) e.data[0];
+					RestartPlatform F = (RestartPlatform) e.data[0];
 					sprite.setY(F.getSprite().getY() - 50);
 				}
-				//here ends the Floor
+				//here ends the RestartPlatform
 				//here begins PlatformBlue
 				if (playerColor == PlayerColor.RED) {
 					if(e.data[0] instanceof PlatformBlue & fall < 0) {
@@ -99,8 +98,8 @@ public class Box2 extends BaseEntity implements Collidable{
 		//Reset
 		if (sprite.getY() >= container.getHeight() + 270) {
 			Game.invokeEvent(new Event("GameOver"));
-			delay += 1;
-			if (delay > 230) {
+			delay += 70 * .001 * delta;
+			if (delay > 240) {
 				delay = 0;
 				isGameOverBox = true;
 			}
@@ -110,15 +109,13 @@ public class Box2 extends BaseEntity implements Collidable{
 			fall = 0;
 			sprite.setX(0);
 			sprite.setY(0);
-			movecell = 0;
 			Game.invokeEvent(new Event("RestartGame"));
 		}
 		
-		movecell += .01;
 		//gravity & jump
 		if (!onDeck) {
 			sprite.setY( (float) (sprite.getY() + (fall) * .001 * delta));
-			fall += movecell + dVelocity;
+			fall += dVelocity * .001 * delta;
 		}
 		//Key input
 		if (container.getInput().isKeyDown(Input.KEY_RIGHT) & sprite.getX() < 910) {

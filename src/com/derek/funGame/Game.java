@@ -7,6 +7,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 import com.derek.funGame.entities.Box2;
+import com.derek.funGame.entities.RestartPlatform;
 import com.derek.funGame.entities.Spawner;
 import com.derek.funGame.events.Event;
 import com.derek.funGame.events.EventHandler;
@@ -32,6 +33,7 @@ public class Game extends BasicGame {
 		bindings = new InputBindings(container.getInput());
 		//Platform Entities
 		EntityManager.instance.spawn(new Spawner(-2));
+		EntityManager.instance.spawn(new RestartPlatform(-1, 0, 700, 50 , 50));
 		//Character Entities
 		EntityManager.instance.spawn(new Box2(-3, 0, 700, 50 , 50));
 	}

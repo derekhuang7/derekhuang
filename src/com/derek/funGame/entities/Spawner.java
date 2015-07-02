@@ -20,7 +20,6 @@ public class Spawner extends BaseEntity{
 	private int x = 0;
 	private int y = 0;
 	private int timer = 0;
-	private Floor f;
 	private float gameTime = 0;
 	private boolean isGameOver = true;
 	private boolean gameStart = false;
@@ -30,8 +29,8 @@ public class Spawner extends BaseEntity{
 	public Spawner(int zIndex) {
 		super(zIndex);
 		
-		f = new Floor(-1, 0, 700, 1200, 10);
-		EntityManager.getInstance().spawn(f);
+		//f = new Floor(-1, 0, 700, 1200, 10);
+		//EntityManager.getInstance().spawn(f);
 		
 		Game.addEventListener("GameOver", new EventHandler() {
 
@@ -47,13 +46,13 @@ public class Spawner extends BaseEntity{
 			@Override
 			public void handleEvent(Event e) {
 				gameTime = 0;
-				x = 960;
+				x = 1500;
 				y = 295;
-				movecell = 0;
-				timer = 0;
+				timer = 1300;
 				isGameOver = false;
 				gameStart = true;
-				f.setCoords(0, 530);
+				EntityManager.getInstance().spawn(new RestartPlatform(-1, 0, 530, 1200 , 10));
+				//f.setCoords(0, 530);
 			}
 			
 		});
@@ -66,7 +65,11 @@ public class Spawner extends BaseEntity{
 			gameTime = (float) (gameTime + .001 * delta);
 		}
 		
-		movecell += .007;
+		if (!isGameOver) {
+			movecell += .4 * .001 * delta;
+		} else if (isGameOver){
+			movecell = 0;
+		}
 		if(timer >= SPAWN_RATE & !isGameOver) {
 			//Y random spawn
 			if (y > 295) {
@@ -82,14 +85,18 @@ public class Spawner extends BaseEntity{
 				EntityManager.getInstance().spawn(new PlatformRed(-1, x, y, 200, 20));
 			}
 			timer = 0;
-		} else {
-			timer += movecell + delta;
+		} else if (!isGameOver) {
+			timer += (movecell * .001 * delta) + delta;
 		}
 	}
 
 	@Override
 	public void render(GameContainer container, Graphics g) throws SlickException {
 		//for the delay of "PREASS ENTER TO PLAY AGAIN"
+		if (!isGameOver) {
+			g.setColor(Color.white);
+			g.drawString(gameTime + " seconds", 405, 50);
+		}
 		if(!isGameOver) {
 			delay = 0;
 		}
