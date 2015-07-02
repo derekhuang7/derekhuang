@@ -17,8 +17,8 @@ public class Spawner extends BaseEntity{
 	public static final int SPAWN_RATE = 1500;
 	
 	Random r = new Random();
-	private int x = 960;
-	private int y = 295;
+	private int x = 0;
+	private int y = 0;
 	private int timer = 0;
 	private float gameTime = 0;
 	private boolean isGameOver = true;
@@ -43,9 +43,10 @@ public class Spawner extends BaseEntity{
 			@Override
 			public void handleEvent(Event e) {
 				gameTime = 0;
-				x = 1300;
+				x = 1000;
 				y = 295;
 				movecell = 0;
+				timer = 0;
 				isGameOver = false;
 				gameStart = true;
 				
@@ -62,8 +63,7 @@ public class Spawner extends BaseEntity{
 			gameTime = (float) (gameTime + .001 * delta);
 		}
 		
-		movecell += .007;
-		System.out.println(movecell);
+		movecell += .01;
 		if(timer >= SPAWN_RATE & !isGameOver) {
 			//Y random spawn
 			if (y > 295) {
