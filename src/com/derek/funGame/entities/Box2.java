@@ -94,7 +94,7 @@ public class Box2 extends BaseEntity implements Collidable{
 	@Override
 	public void update(GameContainer container, int delta) throws SlickException {
 		//Reset
-		if (sprite.getY() >= container.getHeight() + 100) {
+		if (sprite.getY() >= container.getHeight() + 270) {
 			Game.invokeEvent(new Event("GameOver"));
 			delay += 1;
 			if (delay > 230) {

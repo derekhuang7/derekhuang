@@ -14,7 +14,7 @@ import com.derek.funGame.events.EventHandler;
 
 public class Spawner extends BaseEntity{
 
-	public static final int SPAWN_RATE = 1000;
+	public static final int SPAWN_RATE = 750;
 	
 	Random r = new Random();
 	private int x = 960;
@@ -23,7 +23,6 @@ public class Spawner extends BaseEntity{
 	private float gameTime = 0;
 	private boolean isGameOver = true;
 	private boolean gameStart = false;
-
 	private int delay = 0;
 	
 	public Spawner(int zIndex) {
@@ -43,10 +42,11 @@ public class Spawner extends BaseEntity{
 			@Override
 			public void handleEvent(Event e) {
 				gameTime = 0;
-				x = 1500;
+				x = 1300;
 				y = 295;
 				isGameOver = false;
 				gameStart = true;
+				
 				EntityManager.getInstance().spawn(new Floor(-1, 0, 530, 1200, 10));
 			}
 			
@@ -59,6 +59,8 @@ public class Spawner extends BaseEntity{
 			//Game time
 			gameTime = (float) (gameTime + .001 * delta);
 		}
+		
+		
 		if(timer >= SPAWN_RATE & !isGameOver) {
 			//Y random spawn
 			if (y > 295) {
