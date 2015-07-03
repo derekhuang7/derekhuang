@@ -1,14 +1,16 @@
 package com.derek.funGame.entities;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
 import com.derek.funGames.collisions.CollisionSystem;
 
 public class PlatformRed extends Platform{
+	
+	Image Platform2 = null;
 	
 	public PlatformRed(int zIndex, int x, int y, int width, int height) {
 		super(zIndex, x, y, width, height);
@@ -19,7 +21,8 @@ public class PlatformRed extends Platform{
 	@Override
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
-		g.setColor(Color.red);
-		g.fill(getSprite());
+		Platform2 = new Image("res/Platform2.jpg");
+		g.drawImage(Platform2, (float) (sprite.getX() - 10), sprite.getY() - 5);
 	}
+
 }

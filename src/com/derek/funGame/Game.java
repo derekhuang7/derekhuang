@@ -4,8 +4,10 @@ package com.derek.funGame;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import com.derek.funGame.entities.Background;
 import com.derek.funGame.entities.Box2;
 import com.derek.funGame.entities.Platform;
 import com.derek.funGame.entities.RestartPlatform;
@@ -27,11 +29,14 @@ public class Game extends BasicGame {
 	@Override
 	public void render(GameContainer container, Graphics g) throws SlickException {
 		EntityManager.instance.__renderEntities(container, g);
+
 	}
 
 	@Override
 	public void init(GameContainer container) throws SlickException {
 		bindings = new InputBindings(container.getInput());
+		//Background
+		EntityManager.instance.spawn(new Background(-4));
 		//Platform Entities
 		EntityManager.instance.spawn(new Spawner(-2));
 		EntityManager.instance.spawn(new RestartPlatform(-1, 0, 700, 50 , 50));

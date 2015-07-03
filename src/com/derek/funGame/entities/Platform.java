@@ -41,7 +41,6 @@ public class Platform extends BaseEntity implements Collidable{
 		//sprite movement
 		sprite.setX((float) (sprite.getX() - ((200 + hi) * .001 * delta)));
 		hi = (float) (hi + (100 * .001 * delta));
-		System.out.println(hi);
 	}
 
 	@Override
@@ -64,8 +63,8 @@ public class Platform extends BaseEntity implements Collidable{
 		return sprite;
 	}
 
-	public void setSprite(Rectangle sprite) {
-		this.sprite = sprite;
+	public void setSprite(Rectangle rectangle) {
+		this.sprite = rectangle;
 	}
 
 }
