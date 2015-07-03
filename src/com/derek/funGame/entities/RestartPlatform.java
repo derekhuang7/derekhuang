@@ -24,7 +24,7 @@ public class RestartPlatform extends BaseEntity implements Collidable{
 	public void update(GameContainer container, int delta)
 			throws SlickException {
 		//sprite movement
-		sprite.setX((float) (sprite.getX() - ((375) * .001 * delta)));
+		sprite.setX((float) (sprite.getX() - ((350) * .001 * delta)));
 	}
 
 	@Override

@@ -7,6 +7,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 import com.derek.funGame.entities.Box2;
+import com.derek.funGame.entities.Platform;
 import com.derek.funGame.entities.RestartPlatform;
 import com.derek.funGame.entities.Spawner;
 import com.derek.funGame.events.Event;

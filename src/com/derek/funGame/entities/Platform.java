@@ -18,28 +18,18 @@ public class Platform extends BaseEntity implements Collidable{
 	
 	protected Rectangle sprite;
 	protected Random r = new Random();
-	protected static double movecell = 0;
-	private boolean trouble = false;
+	public float hi;
 	
 	public Platform(int zIndex, int x, int y, int width, int height) {
 		super(zIndex);
 		setSprite(new Rectangle(x, r.nextInt(500), width, height));
 		CollisionSystem.getInstance().register(this);
 		
-		Game.addEventListener("GameOver", new EventHandler() {
-
-			@Override
-			public void handleEvent(Event e) {
-				trouble = true;
-			}
-			
-		});
-		
 		Game.addEventListener("RestartGame", new EventHandler() {
 
 			@Override
 			public void handleEvent(Event e) {
-				trouble = false;
+				hi = 0;
 			}
 			
 		});
@@ -49,12 +39,9 @@ public class Platform extends BaseEntity implements Collidable{
 	public void update(GameContainer container, int delta)
 			throws SlickException {
 		//sprite movement
-		if (trouble == true) {
-			movecell = 0;
-		} else if (trouble == false) {
-			movecell += 2 * .001 * delta;
-		}
-		sprite.setX((float) (sprite.getX() - ((375 + movecell) * .001 * delta)));
+		sprite.setX((float) (sprite.getX() - ((200 + hi) * .001 * delta)));
+		hi = (float) (hi + (100 * .001 * delta));
+		System.out.println(hi);
 	}
 
 	@Override

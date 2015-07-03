@@ -14,7 +14,7 @@ import com.derek.funGame.events.EventHandler;
 
 public class Spawner extends BaseEntity{
 
-	public static final int SPAWN_RATE = 1300;
+	public static final int SPAWN_RATE = 900;
 	
 	Random r = new Random();
 	private int x = 0;
@@ -64,9 +64,8 @@ public class Spawner extends BaseEntity{
 			//Game time
 			gameTime = (float) (gameTime + .001 * delta);
 		}
-		
 		if (!isGameOver) {
-			movecell += .4 * .001 * delta;
+			movecell += 1 * .001 * delta;
 		} else if (isGameOver){
 			movecell = 0;
 		}
