@@ -99,7 +99,7 @@ public class Box2 extends BaseEntity implements Collidable{
 		if (sprite.getY() >= container.getHeight() + 270) {
 			Game.invokeEvent(new Event("GameOver"));
 			delay += 70 * .001 * delta;
-			if (delay > 240) {
+			if (delay > 250) {
 				delay = 0;
 				isGameOverBox = true;
 			}
@@ -142,7 +142,7 @@ public class Box2 extends BaseEntity implements Collidable{
 
 	@Override
 	public void render(GameContainer container, Graphics g) throws SlickException {
-		stickfigure = new Image("res/images.jpg");
+		stickfigure = new Image("res/images.png");
 
 		if (playerColor == PlayerColor.RED) {
 			g.drawImage(stickfigure, (float) (sprite.getX() - 25), sprite.getY() + 20, Color.red);

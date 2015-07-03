@@ -21,7 +21,7 @@ public class PlatformBlue extends Platform{
 	@Override
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
-		Platform = new Image("res/Platform.jpg");
+		Platform = new Image("res/Platform.png");
 		g.drawImage(Platform, (float) (sprite.getX() - 10), sprite.getY() - 5);
 	}
 

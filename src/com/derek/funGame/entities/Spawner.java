@@ -21,9 +21,11 @@ public class Spawner extends BaseEntity{
 	private int y = 0;
 	private int timer = 0;
 	private float gameTime = 0;
+	private float hi = 0;
 	private boolean isGameOver = true;
 	private boolean gameStart = false;
 	private int delay = 0;
+
 	private static float movecell = 0;
 	
 	public Spawner(int zIndex) {
@@ -46,12 +48,13 @@ public class Spawner extends BaseEntity{
 			@Override
 			public void handleEvent(Event e) {
 				gameTime = 0;
+				hi = 0;
 				x = 1500;
 				y = 295;
 				timer = 1300;
 				isGameOver = false;
 				gameStart = true;
-				EntityManager.getInstance().spawn(new RestartPlatform(-1, 0, 530, 1200 , 10));
+				EntityManager.getInstance().spawn(new RestartPlatform(-1, 0, 530, 1100 , 40));
 				//f.setCoords(0, 530);
 			}
 			
@@ -63,6 +66,7 @@ public class Spawner extends BaseEntity{
 		if (!isGameOver) {
 			//Game time
 			gameTime = (float) (gameTime + .001 * delta);
+			hi = (float) (hi + (150 * .001 * delta));
 		}
 		if (!isGameOver) {
 			movecell += 1 * .001 * delta;
@@ -74,7 +78,7 @@ public class Spawner extends BaseEntity{
 			if (y > 295) {
 				y = y - r.nextInt(245);
 			} else if (y <= 295) {
-				y = y + r.nextInt(245);
+				y = y + r.nextInt(230);
 			}
 			//Entity spawner
 			int a = r.nextInt(2);
@@ -95,6 +99,8 @@ public class Spawner extends BaseEntity{
 		if (!isGameOver) {
 			g.setColor(Color.white);
 			g.drawString(gameTime + " seconds", 405, 50);
+			g.setColor(Color.orange);
+			g.drawString(hi + 50 + " m/s", 0, 0);
 		}
 		if(!isGameOver) {
 			delay = 0;
@@ -107,25 +113,29 @@ public class Spawner extends BaseEntity{
 			g.drawString("Your time:", 439, 220);
 			g.setColor(Color.red);
 			g.drawString(gameTime + " seconds", 405, 245);
-			if (delay <= 180) {
+			g.setColor(Color.orange);
+			g.drawString(hi + 50 + " m/s", 0, 0);
+			if (delay <= 208) {
 				g.setColor(Color.green);
-				g.fillRoundRect(390, 266, delay, 19, 100);
+				g.fillRoundRect(376, 266, delay, 19, 100);
 				g.setColor(Color.white);
-				if ((delay >= 0 & delay < 20) | (delay >= 60 & delay < 80) | (delay >= 120 & delay < 140)) {
+				if ((delay >= 0 & delay < 13) | (delay >= 52 & delay < 65) | (delay >= 104 & delay < 117) | (delay >= 156 & delay < 169)) {
 					g.drawString("Loading.", 440, 285);
-				} else if ((delay >= 20 & delay < 40) | (delay >= 80 & delay < 100) | (delay >= 140 & delay < 160)) {
+				} else if ((delay >= 13 & delay < 26) | (delay >= 65 & delay < 78) | (delay >= 117 & delay < 130) | (delay >= 169 & delay < 182)) {
 					g.drawString("Loading..", 440, 285);
-				} else {
+				} else if ((delay >= 26 & delay < 39) | (delay >= 78 & delay < 91) | (delay >= 130 & delay < 143) | (delay >= 182 & delay < 195)) {
 					g.drawString("Loading...", 440, 285);
+				} else {
+					g.drawString("Loading....", 440, 285);
 				}
-				g.drawRoundRect(389, 265, 182, 20, 100);
+				g.drawRoundRect(375, 265, 210, 20, 100);
 			}
 			delay += 1;
-			if (delay  > 180) {
+			if (delay  > 208) {
 				g.setColor(Color.green);
-				g.fillRoundRect(390, 266, 180, 19, 100);
+				g.fillRoundRect(376, 266, 208, 19, 100);
 				g.setColor(Color.white);
-				g.drawRoundRect(389, 265, 182, 20, 100);
+				g.drawRoundRect(375, 265, 210, 20, 100);
 				g.drawString("<<< PH4SE RUNN3R >>>", 390, 265);
 				g.drawString("PRESS ENTER TO PLAY AGAIN", 373, 305);
 			}
@@ -139,9 +149,9 @@ public class Spawner extends BaseEntity{
 			g.setColor(Color.white);
 			g.drawString("* Use left/right keys to move side to side and up key to jump.", 150, 190);
 			g.drawString("* Use the spacebar to change phases (red or blue).", 150, 210);
-			g.drawString("* You can only land on blocks that is the opposite color.", 150, 230);
-			g.drawString("    -(e.g. if you are red, you can land blue blocks, but you will", 150, 250);
-			g.drawString("      fall right through a red block.)", 150, 270);
+			g.drawString("* You can only land on plates that are the opposite color.", 150, 230);
+			g.drawString("    -(e.g. if you are red, you can land on blue plate, but", 150, 250);
+			g.drawString("      you will fall right through a red plate.)", 150, 270);
 			g.setColor(Color.red);
 			g.drawString("--- PRESS ENTER TO START ---", 150, 310);
 		}

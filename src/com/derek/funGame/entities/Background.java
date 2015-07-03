@@ -1,5 +1,6 @@
 package com.derek.funGame.entities;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -24,7 +25,7 @@ public class Background extends BaseEntity{
 	public void render(GameContainer container, Graphics g) throws SlickException {
 		// TODO Auto-generated method stub
 		Background = new Image("res/Background.jpg");
-		g.drawImage(Background, 0, 0);
+		g.drawImage(Background, 0, 0, Color.green);
 	}
 
 }
